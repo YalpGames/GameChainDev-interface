@@ -4,7 +4,7 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import Link from 'next/link';
 import AppStart from "./api/app";
-import { BasciConnect } from "./api/ConnectButton";
+import { BasciConnect } from '../components/ConnectWallet';
 
 const Home: NextPage = () => {
   return (
@@ -34,10 +34,10 @@ const Home: NextPage = () => {
             <p>Find in-depth information about Next.js features and API.</p>
           </a>
 
-          <a href="/posts/fist-post" className={styles.card}>
+          <Link href="/posts/fist-post" className={styles.card}>
             <h2>getPost &rarr;</h2>
             <p>get the fist post!</p>
-          </a>  
+          </Link>  
 
           <a
             href="https://github.com/vercel/next.js/tree/canary/examples"
