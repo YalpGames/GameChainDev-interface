@@ -5,9 +5,10 @@ import { useDynamicExampleContract, useStaticExampleContract } from "../../hooks
 import { useEffect, useState } from "react";
 import { useAccount,useContractRead  } from "wagmi";
 import  MainTokenABI  from "../../contractsAbis/token/Token.sol/MainToken.json";
+import {useMainTokenBalanceOf,useMainTokenMint,useMainTokenName} from "../../hooks/wagmiHooks";
 
-const Example = () => {
-    const StaticExampleInstance = useStaticExampleContract(MAINTOKEN_ADDRESSES[ChainId.RINKEBY], ChainId.RINKEBY);
+const TokenApp = () => {
+    const StaticExampleInstance = useStaticExampleContract(MAINTOKEN_ADDRESSES[ChainId.PRIVATE], ChainId.PRIVATE);
     const DynamicExampleInstance = useDynamicExampleContract(MAINTOKEN_ADDRESSES, true);
     const [count, setCount] = useState("");
     const { isConnected, address} = useAccount();
@@ -18,6 +19,9 @@ const Example = () => {
 
     const init = async () => {
         //const count = await StaticExampleInstance.balanceOf(address);
+        const { data } = useMainTokenName();
+        console.log("1111111111111111111111111111111111111111111111111");
+        console.log(data);
         setCount(count.toString());
     };
 
@@ -89,4 +93,4 @@ const Example = () => {
     );
 };
 
-export default Example;
+export default TokenApp;

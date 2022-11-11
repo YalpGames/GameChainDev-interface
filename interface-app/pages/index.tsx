@@ -5,6 +5,7 @@ import styles from '../styles/Home.module.css'
 import Link from 'next/link';
 import AppStart from "./api/app";
 import { BasciConnect } from '../components/ConnectWallet';
+import TokenApp from "../components/TokenApp/index";
 
 const Home: NextPage = () => {
   return (
@@ -15,7 +16,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div>
-        <BasciConnect></BasciConnect>
+        <TokenApp></TokenApp>
       </div>
       
       <main className={styles.main}>

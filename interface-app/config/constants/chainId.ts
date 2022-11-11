@@ -1,8 +1,8 @@
 export enum ChainId {
     ETHEREUM = 1,
     // ROPSTEN = 3,
-    RINKEBY = 4,
-    // GÖRLI = 5,
+    //RINKEBY = 4,
+    GÖRLI = 5,
     // KOVAN = 42,
     // MATIC = 137,
     // MATIC_TESTNET = 80001,
@@ -30,6 +30,7 @@ export enum ChainId {
     // TELOS = 40,
     // HARDHAT = 31337,
     // MOONBEAM = 1284,
+    PRIVATE = 84537,
 }
 
 export const defaultChainId = 4;

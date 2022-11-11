@@ -21,8 +21,8 @@ export function useMainTokenContract(): MainToken {
   return contract as MainToken;
 }
 
-export function useMainTokenBalanceOf({ address }: { address?: string }) {
-    const { address: _address } = useAccount();
+export function useMainTokenBalanceOf() {
+    const { address } = useAccount();
     const { chain } = useNetwork();
     const MainTokenAddress = chain ? MAINTOKEN_ADDRESSES[chain.id] : undefined;
   
@@ -30,9 +30,23 @@ export function useMainTokenBalanceOf({ address }: { address?: string }) {
       address: MainTokenAddress || ZERO_ADDRESS,
       abi: MainTokenABI,
       functionName: 'balanceOf',
-      args: [address ?? _address] 
+      args: [address] 
     });
 }
+
+export function useMainTokenName() {
+    const { address } = useAccount();
+    const { chain } = useNetwork();
+    console.log("chain id : ",chain.id);
+    const MainTokenAddress = chain ? MAINTOKEN_ADDRESSES[chain.id] : undefined;
+  
+    return useContractRead({
+      address: MainTokenAddress || ZERO_ADDRESS,
+      abi: MainTokenABI,
+      functionName: 'name',
+    });
+}
+
 
 export function useMainTokenMint({amount}:{amount:number}){
     const { address, isConnecting, isDisconnected } = useAccount();
@@ -65,5 +79,4 @@ export function useMainTokenMint({amount}:{amount:number}){
         args: [address!,ethers.BigNumber.from(amount)] 
       });
     const { data, isLoading, isSuccess, write } = useContractWrite(config);
-    
 }
