@@ -1,10 +1,11 @@
 import { Contract, ContractInterface } from "@ethersproject/contracts";
+import  MainTokenABI  from "../contractsAbis/token/Token.sol/MainToken.json";
+import { MainToken } from "../contractsTypes/token/Token.sol/MainToken";
 import { AddressMap } from "../config/constants/addresses";
 import { ChainId, defaultChainId } from "../config/constants/chainId";
 import { Providers } from "../config/providers";
 import { useMemo } from "react";
 import { useNetwork, useProvider, useSigner } from "wagmi";
-
 export const createStaticContract = <TContract extends Contract = Contract>(ABI: ContractInterface) => {
     return (address: string, chainId: ChainId) => {
         const provider = Providers.getStaticProvider(chainId);
@@ -32,4 +33,8 @@ const createDynamicContract = <TContract extends Contract = Contract>(ABI: Contr
 
 // export const useStaticExampleContract = createStaticContract<type>(ABI);
 
+export const useStaticExampleContract = createStaticContract<MainToken>(MainTokenABI);
+
 // export const useDynamicExampleContract = createDynamicContract<type>(ABI);
+
+export const useDynamicExampleContract = createDynamicContract<MainToken>(MainTokenABI);

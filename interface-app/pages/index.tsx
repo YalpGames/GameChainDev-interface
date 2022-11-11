@@ -35,8 +35,10 @@ const Home: NextPage = () => {
           </a>
 
           <Link href="/posts/fist-post" className={styles.card}>
-            <h2>getPost &rarr;</h2>
-            <p>get the fist post!</p>
+            <div>
+              <h2>getPost &rarr;</h2>
+              <p>get the fist post!</p>
+            </div>
           </Link>  
 
           <a

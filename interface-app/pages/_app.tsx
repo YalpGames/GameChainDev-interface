@@ -1,5 +1,5 @@
 import { RainbowKitProvider } from "@rainbow-me/rainbowkit";
-import { chains, wagmiClient } from "..//config/wagmi";
+import { chains, wagmiClient } from "../config/wagmi";
 import type { AppProps } from "next/app";
 import { useEffect, useState } from "react";
 import "../styles/globals.css";

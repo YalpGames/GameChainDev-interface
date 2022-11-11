@@ -1,8 +1,9 @@
 import { connectorsForWallets } from "@rainbow-me/rainbowkit";
-import { chain, configureChains, createClient } from "wagmi";
+import { chain, configureChains, createClient ,useContractWrite} from "wagmi";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
 import { publicProvider } from "wagmi/providers/public";
+import  MainTokenABI  from "../contractsAbis/token/Token.sol/MainToken.json";
 
 import {
     injectedWallet,
@@ -16,9 +17,9 @@ import {
   } from '@rainbow-me/rainbowkit/wallets';
 
 export const { chains, provider, webSocketProvider } = configureChains(
-    [chain.mainnet, chain.goerli, chain.rinkeby, chain.kovan, chain.ropsten],
+    [chain.mainnet, chain.goerli],
     [
-        alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_ID }),
+        alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_ID!}),
         jsonRpcProvider({ rpc: (chain) => ({ http: chain.rpcUrls.default }) }),
         publicProvider(),
     ],
