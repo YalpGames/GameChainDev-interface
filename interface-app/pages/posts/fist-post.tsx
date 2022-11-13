@@ -18,6 +18,7 @@ const FirstPost: NextPage = () => {
             </Head>
             <div>
         <TokenApp></TokenApp>
+        
       </div>
             <Script
                 src="https://connect.facebook.net/en_US/sdk.js" //加载第三方脚本

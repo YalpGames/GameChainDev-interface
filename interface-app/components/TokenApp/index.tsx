@@ -1,33 +1,92 @@
 import { BasciConnect, } from "../ConnectWallet";
-import { MAINTOKEN_ADDRESSES } from "../../config/constants/addresses";
+import { MAINTOKEN_ADDRESSES ,ZERO_ADDRESS} from "../../config/constants/addresses";
 import { ChainId } from "../../config/constants/chainId";
 import { useDynamicExampleContract, useStaticExampleContract } from "../../hooks/useContract";
 import { useEffect, useState } from "react";
-import { useAccount,useContractRead  } from "wagmi";
+import { useAccount,useContractRead ,useNetwork,useContractWrite } from "wagmi";
 import  MainTokenABI  from "../../contractsAbis/token/Token.sol/MainToken.json";
 import {useMainTokenBalanceOf,useMainTokenMint,useMainTokenName} from "../../hooks/wagmiHooks";
+import xentestAbi from "./xentestAbi.json";
+import { ethers } from "ethers";
 
 const TokenApp = () => {
     // const StaticExampleInstance = useStaticExampleContract(MAINTOKEN_ADDRESSES[ChainId.PRIVATE], ChainId.PRIVATE);
     // const DynamicExampleInstance = useDynamicExampleContract(MAINTOKEN_ADDRESSES, true);
-    const [count, setCount] = useState("");
+
+    const [amount, setAmount] = useState(10);
     const { isConnected, address} = useAccount();
-    console.log("1111111111111111111111111111111111111111111111111");
-    console.log(address);
+    const { chain } = useNetwork();
+    const MainTokenAddress = chain ? MAINTOKEN_ADDRESSES[chain.id] : undefined;
+    const balanceMainToken = "0";
+    
+    const {data: tokenName} =  useContractRead({
+        address: MainTokenAddress || ZERO_ADDRESS,
+        abi: MainTokenABI,
+        functionName: 'name',
+        //chainId: chain.id || 1,
+        // onSettled(data, error) {
+        //     console.log('read name', { data, error })
+        //   },
+      });
+
+    const {data: balanceOfToken} =  useContractRead({
+        address: MainTokenAddress || ZERO_ADDRESS,
+        abi: MainTokenABI,
+        functionName: 'balanceOf',
+        args: [address],
+        //chainId: chain.id || 1,
+      });
+    if(balanceOfToken != undefined){
+         balanceMainToken = ethers.utils.formatEther(balanceOfToken);   
+    }
+    //   console.log(`user balance: ${balanceMainToken}\n`);
+    
+    const handleSetAmount = (ev) => {
+        let amount = parseInt(ev.target.value, 10);
+        if (!amount || amount <= 0) {
+            amount = 1;
+        }
+        setAmount(amount);
+    };
+
+    const { writeAsync } = useContractWrite({
+        mode: "recklesslyUnprepared",
+        address: MainTokenAddress || ZERO_ADDRESS,
+        abi: MainTokenABI,
+        functionName: "mint",
+        args: [address,ethers.utils.parseEther(amount.toString())]
+    });
+
+    const hanldeMint = () => {
+    writeAsync().then(() => {
+        alert("✅ Tx sended!");
+    });
+    };
 
     useEffect(() => {
-        init("0");
-    }, []);
-
-    const init = async (count:string) => {
-      //  const count = await StaticExampleInstance.balanceOf(address);
-        setCount(count.toString());
-    };
+        setAmount(amount);
+    }, [amount]);
 
     return (
         <div>
             <div>
-                <BasciConnect></BasciConnect>
+                <div
+                    style={{
+                        width: "100%",
+                        textAlign: "center",
+                        fontSize: "24px",
+                    }}
+                >
+                    Name (
+                    <span
+                        style={{
+                            color: "gray",
+                        }}
+                    >
+                        token name
+                    </span>
+                    ) :{tokenName}
+                </div>
 
                 <div
                     style={{
@@ -36,7 +95,7 @@ const TokenApp = () => {
                         fontSize: "24px",
                     }}
                 >
-                    count (
+                    Amount (
                     <span
                         style={{
                             color: "gray",
@@ -44,11 +103,20 @@ const TokenApp = () => {
                     >
                         read Contract
                     </span>
-                    ) :{count ? count : 0}
+                    ) :{balanceMainToken ? balanceMainToken : "0"}
                 </div>
                 <>
                     {isConnected ? (
                         <div>
+                            <div className="bd" 
+                                style={{
+                                    width: "100%",
+                                    textAlign: "center",
+                                    fontSize: "24px",
+                                }}>
+                                数量 -- (amount):
+                                <input value={amount} onChange={handleSetAmount} />
+                            </div>
                             <div
                                 style={{
                                     width: "200px",
@@ -62,24 +130,8 @@ const TokenApp = () => {
                                     margin: "0 auto",
                                     cursor: "pointer",
                                 }}
-                                onClick={async () => {
-                                    // try {
-                                    //    // console.log(DynamicExampleInstance);
-
-                                    // //    const tx = await DynamicExampleInstance?.mint(address,1000);
-                                    // const { data:  name } = useMainTokenName();
-                                    // console.log("2222222222222222222222222222222222222222222222");
-                                    // console.log(name);
-                                    // init(name);
-                                    // } catch (error) {
-                                    //     console.log(error);
-                                    // }
-                                    const { data:  name } = useMainTokenName();
-                                    console.log("2222222222222222222222222222222222222222222222");
-                                    console.log(name);
-                                }}
                             >
-                                setCount(write Contract)
+                            <button onClick={hanldeMint}>mintToken (Witch Mint)</button>
                             </div>
                         </div>
                     ) : (
@@ -89,7 +141,6 @@ const TokenApp = () => {
                                 justifyContent: "center",
                             }}
                         >
-                            <BasciConnect></BasciConnect>
                         </div>
                     )}
                 </>

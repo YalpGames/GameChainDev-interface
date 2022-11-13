@@ -5,7 +5,9 @@ import { AddressMap } from "../config/constants/addresses";
 import { ChainId, defaultChainId } from "../config/constants/chainId";
 import { Providers } from "../config/providers";
 import { useMemo } from "react";
-import { useNetwork, useProvider, useSigner } from "wagmi";
+import { useNetwork, useProvider, useSigner ,useAccount,useContractRead} from "wagmi";
+import { MAINTOKEN_ADDRESSES ,ZERO_ADDRESS} from "../config/constants/addresses";
+
 export const createStaticContract = <TContract extends Contract = Contract>(ABI: ContractInterface) => {
     return (address: string, chainId: ChainId) => {
         const provider = Providers.getStaticProvider(chainId);
@@ -38,3 +40,16 @@ export const useStaticExampleContract = createStaticContract<MainToken>(MainToke
 // export const useDynamicExampleContract = createDynamicContract<type>(ABI);
 
 export const useDynamicExampleContract = createDynamicContract<MainToken>(MainTokenABI);
+
+export function useMainTokenName2() {
+    const { address } = useAccount();
+    const { chain } = useNetwork();
+    //console.log("chain id : ",chain.id);
+    const MainTokenAddress = chain ? MAINTOKEN_ADDRESSES[chain.id] : undefined;
+  
+    return useContractRead({
+      address: MainTokenAddress || ZERO_ADDRESS,
+      abi: MainTokenABI,
+      functionName: 'name',
+    });
+}
