@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import "../styles/globals.css";
 import "../styles/rainbowkit.css";
 import { WagmiConfig } from "wagmi";
+import  FirstPost from "./posts/fist-post";
 
 function MyApp({ Component, pageProps }: AppProps) {
     const [mounted, setMounted] = useState(false);
@@ -16,6 +17,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <WagmiConfig client={wagmiClient}>
             <RainbowKitProvider chains={chains}>
                 <Component {...pageProps} />
+                <FirstPost />
             </RainbowKitProvider>
         </WagmiConfig>
     );

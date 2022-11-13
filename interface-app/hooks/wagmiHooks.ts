@@ -37,7 +37,7 @@ export function useMainTokenBalanceOf() {
 export function useMainTokenName() {
     const { address } = useAccount();
     const { chain } = useNetwork();
-    console.log("chain id : ",chain.id);
+    //console.log("chain id : ",chain.id);
     const MainTokenAddress = chain ? MAINTOKEN_ADDRESSES[chain.id] : undefined;
   
     return useContractRead({

@@ -8,20 +8,19 @@ import  MainTokenABI  from "../../contractsAbis/token/Token.sol/MainToken.json";
 import {useMainTokenBalanceOf,useMainTokenMint,useMainTokenName} from "../../hooks/wagmiHooks";
 
 const TokenApp = () => {
-    const StaticExampleInstance = useStaticExampleContract(MAINTOKEN_ADDRESSES[ChainId.PRIVATE], ChainId.PRIVATE);
-    const DynamicExampleInstance = useDynamicExampleContract(MAINTOKEN_ADDRESSES, true);
+    // const StaticExampleInstance = useStaticExampleContract(MAINTOKEN_ADDRESSES[ChainId.PRIVATE], ChainId.PRIVATE);
+    // const DynamicExampleInstance = useDynamicExampleContract(MAINTOKEN_ADDRESSES, true);
     const [count, setCount] = useState("");
     const { isConnected, address} = useAccount();
-    
+    console.log("1111111111111111111111111111111111111111111111111");
+    console.log(address);
+
     useEffect(() => {
-        init();
+        init("0");
     }, []);
 
-    const init = async () => {
-        //const count = await StaticExampleInstance.balanceOf(address);
-        const { data } = useMainTokenName();
-        console.log("1111111111111111111111111111111111111111111111111");
-        console.log(data);
+    const init = async (count:string) => {
+      //  const count = await StaticExampleInstance.balanceOf(address);
         setCount(count.toString());
     };
 
@@ -64,14 +63,20 @@ const TokenApp = () => {
                                     cursor: "pointer",
                                 }}
                                 onClick={async () => {
-                                    try {
-                                        console.log(DynamicExampleInstance);
+                                    // try {
+                                    //    // console.log(DynamicExampleInstance);
 
-                                    //    const tx = await DynamicExampleInstance?.mint(address,1000);
-                                        init();
-                                    } catch (error) {
-                                        console.log(error);
-                                    }
+                                    // //    const tx = await DynamicExampleInstance?.mint(address,1000);
+                                    // const { data:  name } = useMainTokenName();
+                                    // console.log("2222222222222222222222222222222222222222222222");
+                                    // console.log(name);
+                                    // init(name);
+                                    // } catch (error) {
+                                    //     console.log(error);
+                                    // }
+                                    const { data:  name } = useMainTokenName();
+                                    console.log("2222222222222222222222222222222222222222222222");
+                                    console.log(name);
                                 }}
                             >
                                 setCount(write Contract)
