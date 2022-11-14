@@ -7,7 +7,10 @@ import AppStart from "./api/app";
 import { BasciConnect } from '../components/ConnectWallet';
 import Box from '@mui/material/Box';
 import MuiLink from '@mui/material/Link';
-import { AccessAlarm, ThreeDRotation, GitHub } from '@mui/icons-material';
+import { Twitter, GitHub,DescriptionOutlined } from '@mui/icons-material';
+import Fab from '@mui/material/Fab';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import NavigationIcon from '@mui/icons-material/Navigation';
 
 const Home: NextPage = () => {
   const preventDefault = (event: React.SyntheticEvent) => event.preventDefault();
@@ -20,6 +23,22 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {/* <BasciConnect></BasciConnect> */}
+
+      <Box sx={{ '& > :not(style)': { m: 1 } }}
+      style={{
+        width: "100%",
+        textAlign: "right",
+      }}>
+      <Link href="/posts/fist-post" className={styles.card}>
+        <Fab  variant="extended">
+          <NavigationIcon sx={{ mr: 1 }} />
+          Enter YalpAPP
+        </Fab>  
+      </Link> 
+      <Fab aria-label="like">
+        <FavoriteIcon />
+      </Fab>
+    </Box>
 
       <main className={styles.main}>
         <h1 className={styles.title}>
@@ -35,14 +54,7 @@ const Home: NextPage = () => {
           <a href="https://nextjs.org/docs" className={styles.card}>
             <h2>Documentation &rarr;</h2>
             <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <Link href="/posts/fist-post" className={styles.card}>
-            <div>
-              <h2>getPost &rarr;</h2>
-              <p>get the fist post!</p>
-            </div>
-          </Link>  
+          </a> 
 
           <a
             href="https://github.com/vercel/next.js/tree/canary/examples"
@@ -63,6 +75,34 @@ const Home: NextPage = () => {
           </a>
         </div>
       </main>
+        <Box
+        sx={{
+          typography: 'body1',
+          '& > :not(style) + :not(style)': {
+            ml: 2,
+          },
+        }}
+        style={{
+          width: "100%",
+          textAlign: "center",
+          fontSize: "24px",
+        }}
+        // onClick={preventDefault}
+      >
+        
+        <MuiLink href="https://twitter.com/yalp_games" color="inherit">
+        <Twitter />
+        </MuiLink>
+
+        <MuiLink href="https://github.com/YalpGames" color="inherit">
+          <GitHub />
+        </MuiLink>
+        
+        <MuiLink href="https://github.com/ProjectTwelve/whitepaper" color="inherit">
+          <DescriptionOutlined />
+        </MuiLink>
+      </Box>
+
       <footer className={styles.footer}>
         <a
           href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
@@ -75,25 +115,6 @@ const Home: NextPage = () => {
           </span>
         </a>
       </footer>
-
-      <Box
-      sx={{
-        typography: 'body1',
-        '& > :not(style) + :not(style)': {
-          ml: 2,
-        },
-      }}
-      // onClick={preventDefault}
-    >
-      <MuiLink href="#">Link</MuiLink>
-      <MuiLink href="#" color="inherit">
-      <AccessAlarm />
-      </MuiLink>
-      <MuiLink href="https://github.com" variant="body2">
-        <GitHub />
-      </MuiLink>
-    </Box>
-    
     </div>
   )
 }

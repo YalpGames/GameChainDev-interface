@@ -8,7 +8,7 @@ import {
 	useDynamicExampleContract,
 	useStaticExampleContract,
 } from "../../hooks/useContract";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
 	useAccount,
 	useContractRead,
@@ -23,6 +23,13 @@ import {
 } from "../../hooks/wagmiHooks";
 import xentestAbi from "./xentestAbi.json";
 import { ethers } from "ethers";
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
 
 const TokenApp = () => {
 	// const StaticExampleInstance = useStaticExampleContract(MAINTOKEN_ADDRESSES[ChainId.PRIVATE], ChainId.PRIVATE);
@@ -88,86 +95,55 @@ const TokenApp = () => {
 		setAmount(amount);
 	}, [amount]);
 
-	return (
-		<div>
-			<div>
-				<div
-					style={{
-						width: "100%",
-						textAlign: "center",
-						fontSize: "24px",
-					}}
-				>
-					Name (
-					<span
-						style={{
-							color: "gray",
-						}}
-					>
-						token name
-					</span>
-					) :{tokenName}
-				</div>
+	const bull = (
+        <Box
+          component="span"
+          sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
+        >
+          •
+        </Box>
+      );
+      
+    const card = (
+        <React.Fragment>
+          <CardContent>
+            <Typography sx={{ fontSize: 24 }} color="text.secondary" gutterBottom>
+             Yalp Token Info
+            </Typography>
+            <Typography variant="h5" component="div">
+			Name{bull}(token name): {tokenName}
+            </Typography>
+            <Typography variant="h5" component="div">
+			Amount{bull}(usr amount): {balanceMainToken ? balanceMainToken : "0"}
+            </Typography>
+          </CardContent>
+			<TextField id="outlined-basic" label="Outlined" variant="outlined" value={amount} onChange={handleSetAmount} >
+				Mint Amount
+			</TextField>
+			<Button onClick={hanldeMint} variant="contained" href="#contained-buttons">Mint Token</Button>
+        </React.Fragment>
+      );
 
-				<div
-					style={{
-						width: "100%",
-						textAlign: "center",
-						fontSize: "24px",
-					}}
-				>
-					Amount (
-					<span
-						style={{
-							color: "gray",
-						}}
-					>
-						read Contract
-					</span>
-					) :{balanceMainToken ? balanceMainToken : "0"}
-				</div>
-				<>
-					{isConnected ? (
-						<div>
-							<div
-								className="bd"
-								style={{
-									width: "100%",
-									textAlign: "center",
-									fontSize: "24px",
-								}}
-							>
-								数量 -- (amount):
-								<input value={amount} onChange={handleSetAmount} />
-							</div>
-							<div
-								style={{
-									width: "200px",
-									height: "50px",
-									backgroundColor: "#0076F7",
-									color: "white",
-									borderRadius: "20px",
-									textAlign: "center",
-									lineHeight: "50px",
-									fontSize: "14px",
-									margin: "0 auto",
-									cursor: "pointer",
-								}}
-							>
-								<button onClick={hanldeMint}>mintToken (Witch Mint)</button>
-							</div>
-						</div>
-					) : (
-						<div
-							style={{
-								display: "flex",
-								justifyContent: "center",
-							}}
-						></div>
-					)}
-				</>
-			</div>
+	return (
+		<div style={{
+			width: "100%",
+			textAlign: "center",
+			fontSize: "24px",
+		}}>
+		  <Box sx={{ minWidth: 315 }}>
+		  {isConnected ? (
+		  <Card variant="outlined">{card}</Card>
+		  ) :(
+			<div
+				style={{
+					display: "flex",
+					justifyContent: "center",
+				}}
+			></div>
+		)}
+          </Box>
 		</div>
+		
 	);
 };
 
