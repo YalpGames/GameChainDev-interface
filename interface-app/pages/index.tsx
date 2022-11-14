@@ -5,8 +5,13 @@ import styles from '../styles/Home.module.css'
 import Link from 'next/link';
 import AppStart from "./api/app";
 import { BasciConnect } from '../components/ConnectWallet';
+import Box from '@mui/material/Box';
+import MuiLink from '@mui/material/Link';
+import { AccessAlarm, ThreeDRotation ,GitHubIcon } from '@mui/icons-material';
 
 const Home: NextPage = () => {
+  const preventDefault = (event: React.SyntheticEvent) => event.preventDefault();
+
   return (
     <div>
       <Head>
@@ -70,6 +75,25 @@ const Home: NextPage = () => {
           </span>
         </a>
       </footer>
+
+      <Box
+      sx={{
+        typography: 'body1',
+        '& > :not(style) + :not(style)': {
+          ml: 2,
+        },
+      }}
+      onClick={preventDefault}
+    >
+      <Link href="#">Link</Link>
+      <Link href="#" color="inherit">
+       <AccessAlarm />
+      </Link>
+      <Link href="#" variant="body2">
+        <GitHubIcon />
+      </Link>
+    </Box>
+    
     </div>
   )
 }
