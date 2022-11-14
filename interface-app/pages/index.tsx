@@ -7,7 +7,7 @@ import AppStart from "./api/app";
 import { BasciConnect } from '../components/ConnectWallet';
 import Box from '@mui/material/Box';
 import MuiLink from '@mui/material/Link';
-import { AccessAlarm, ThreeDRotation ,GitHubIcon } from '@mui/icons-material';
+import { AccessAlarm, ThreeDRotation, GitHub } from '@mui/icons-material';
 
 const Home: NextPage = () => {
   const preventDefault = (event: React.SyntheticEvent) => event.preventDefault();
@@ -83,15 +83,15 @@ const Home: NextPage = () => {
           ml: 2,
         },
       }}
-      onClick={preventDefault}
+      // onClick={preventDefault}
     >
-      <Link href="#">Link</Link>
-      <Link href="#" color="inherit">
-       <AccessAlarm />
-      </Link>
-      <Link href="#" variant="body2">
-        <GitHubIcon />
-      </Link>
+      <MuiLink href="#">Link</MuiLink>
+      <MuiLink href="#" color="inherit">
+      <AccessAlarm />
+      </MuiLink>
+      <MuiLink href="https://github.com" variant="body2">
+        <GitHub />
+      </MuiLink>
     </Box>
     
     </div>
