@@ -7,6 +7,12 @@ import Link from 'next/link';
 import Script from 'next/script';
 import TokenApp from "../../components/TokenApp/index";
 import { BasciConnect } from '../../components/ConnectWallet';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+
 
 const FirstPost: NextPage = () => {
     
@@ -22,6 +28,74 @@ const FirstPost: NextPage = () => {
             <div>
                 <TokenApp></TokenApp>
             </div>
+            <div>
+                <Card sx={{ minWidth: 275 }}>
+                <CardContent>
+                <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                    game player
+                </Typography>
+                <Typography variant="h5" component="div">
+                    I am a Game player
+                </Typography>
+                <Typography variant="body2">
+                    Go to the gamer app.
+                </Typography>
+                </CardContent>
+                <CardActions>
+                <Button  size="small">
+                    <Link href="/posts/second-post" className={styles.card}>
+                        learn more 
+                    </Link> 
+                </Button>
+                </CardActions>
+                </Card>
+            </div>
+            <div>
+                <Card sx={{ minWidth: 275 }}>
+                <CardContent>
+                <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                    game devloper
+                </Typography>
+                <Typography variant="h5" component="div">
+                    I am a Game Devloper
+                </Typography>
+                <Typography variant="body2">
+                    Go to the gamerdev app.
+                </Typography>
+                </CardContent>
+                <CardActions>
+                <Button  size="small">
+                    <Link href="/posts/third-post" className={styles.card}>
+                        learn more 
+                    </Link> 
+                </Button>
+                </CardActions>
+                </Card>
+            </div>
+            <div>
+                <Card sx={{ minWidth: 275 }}>
+                <CardContent>
+                <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                    VotingEscrow
+                </Typography>
+                <Typography variant="h5" component="div">
+                    Staking VotingEscrow
+                </Typography>
+                <Typography variant="body2">
+                    Go to the VotingEscrow app.
+                </Typography>
+                </CardContent>
+                <CardActions>
+                <Button  size="small">
+                    <Link href="/posts/votingEscrow-post" className={styles.card}>
+                        learn more 
+                    </Link> 
+                </Button>
+                </CardActions>
+                </Card>
+            </div>
+
+
             <Script
                 src="https://connect.facebook.net/en_US/sdk.js" //加载第三方脚本
                 strategy="lazyOnload"                           //空闲时加载

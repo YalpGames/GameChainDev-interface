@@ -21,7 +21,6 @@ import {
 	useMainTokenMint,
 	useMainTokenName,
 } from "../../hooks/wagmiHooks";
-import xentestAbi from "./xentestAbi.json";
 import { ethers } from "ethers";
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
