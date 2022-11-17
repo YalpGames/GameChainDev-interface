@@ -17,6 +17,7 @@ import Typography from '@mui/material/Typography';
 const FirstPost: NextPage = () => {
     
     return (
+        <section className="bg-gray-900 text-white">
         <div className={styles.container}>
             <BasciConnect></BasciConnect>
             <Head>
@@ -110,6 +111,7 @@ const FirstPost: NextPage = () => {
                 </Link>
             </div>
         </div>
+        </section>
     )
 }
 
